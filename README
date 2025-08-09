@@ -1,0 +1,118 @@
+* Sammy
+
+This is Sammy.
+
+Standard input is replicated as Morse code, of one or of different [[modes][modes]].
+
+First run with ~MORSE_KEY=yes~ to generate the [[keys][different keys or spaces]].
+
+~MORSE_KEY=yes morse~
+
+Standard input is a line for alphanumeric and international modes,
+and the whole contents for base-95 mode.
+
+Sammy each time writes to /tmp/out.flac or /tmp/out.spx,
+and replicates for you per default.
+
+~MORSE_SMALL=no~: /tmp/out.flac\\
+~MORSE_SMALL=yes~: /tmp/out.spx
+
+Loop a Morse /read-eval/ loop by reading lines of input.
+
+#+BEGIN_SRC sh
+while true
+ do morse
+done
+#+END_SRC
+
+<<modes>>
+
+** Modes
+
+There are different modes of coding input;
+namely the [[alphanumeric][alphanumeric]], for basic applications;
+the [[international][international]], for a breadth of application;
+and the [[base-95][base-95]], for coding technical inputs
+(but what is probably uncommonly difficult to interpret by hand!).
+
+<<alphanumeric>>
+
+*** Alphanumeric
+
+Alphanumeric Morse code encompasses English small letters and numerals.
+
+~'a' . 'z'~\\
+~'0' . '9'~
+
+<<international>>
+
+*** International
+
+International Morse code encompasses English small letters
+with the e with acute accent, numerals, and several characters,
+encompassing 50 letters.
+
+~'a' . 'z'~\\
+~'00E9'~\\
+~'0' . '9'~\\
+~'.'~\\
+~','~\\
+~'?'~\\
+~'0027'~\\
+~'/'~\\
+~'('~\\
+~')'~\\
+~':'~\\
+~'='~\\
+~'+'~\\
+~'-'~\\
+~'"'~\\
+~'@'~
+
+<<base-95>>
+
+*** Base-95
+
+Base-95 Morse code encompasses English small and capital letters, numerals,
+and a large number of computing characters, encompassing 95 letters.
+
+It uses coding strings of letters,
+all stuck together for long letter-names.
+
+~'0020' . '007E'~
+
+<<keys>>
+
+** Keys
+
+Sammy uses audio files to generate strings by building them up together,
+namely: dot.flac, dash.flac, es.flac, cs.flac, ws.flac.
+
+There are element spaces, character spaces, and word spaces,
+increasing such in pause or length.
+And there are dots and dashes, a short and a long pulse.
+
+The keys are generating according to the internally set [[settings][speed]],
+which is lower by magnitude as it gets faster
+and higher by magnitude as it gets slower.
+
+<<settings>>
+
+** Settings
+
+Speed is defined internally as ~speed~,
+which is lower by magnitude as it gets faster
+and higher by magnitude as it gets slower.
+
+Frequency, that of the carrier wave, is defined internally as ~frequency~,
+which is the pulsations per second (Hz) or also the pitch.
+
+Length; that of transmission generally, or of one pulse;
+is defined internally as the relation of the above two as shown:
+
+~1 ÷ frequency × speed~
+
+** Dependencies
+
+It depends on FFmpeg and SoX,
+and FFmpeg requires libspeex for the ~MORSE_SMALL~ option.
